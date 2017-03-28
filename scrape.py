@@ -10,13 +10,14 @@ roll_nos = []
 cgpas = []
 
 for i in range(1, total_students+1):
-  roll = dept+year+batch+'00'
+  roll = ''+year+dept+batch+'00'
   if i < 10:
     roll += '0'+`i`
   else:
     roll += `i`
   roll_nos.append(roll)
 
+print 'SCRAPING.............'
 for roll in roll_nos:
 	url = "https://erp.iitkgp.ernet.in/StudentPerformance/view_performance.jsp?rollno="
 	url += roll
@@ -30,12 +31,12 @@ for roll in roll_nos:
 	   if secondary:
 	   		cgpa = secondary.group(0)
 	   		cgpas.append(cgpa)
-	   		print cgpa
+	   		print roll,cgpa
 	else:
 		cgpa = 0
 		cgpas.append(cgpa)
-   		print cgpa
-
+   		print roll+" does not exist"
+print 'DONE...................'
 
 sorted_cgpas = [(cg,roll) for (cg,roll) in sorted(zip(cgpas, roll_nos))]
 i = 0
